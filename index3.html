@@ -3,45 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Button Quest — End</title>
+
 <style>
-  body {
-    margin: 0;
-    background: linear-gradient(135deg,#1e3a8a,#020617);
-    color: white;
-    font-family: monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .box {
-    width: 520px;
-    border: 3px solid white;
-    padding: 30px;
-    text-align: center;
-  }
-
-  a {
-    color: #22c55e;
-    text-decoration: none;
-  }
+body {
+  margin: 0;
+  background: linear-gradient(135deg,#1e3a8a,#020617);
+  color: white;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.box {
+  width: 520px;
+  border: 3px solid white;
+  padding: 30px;
+  text-align: center;
+}
+a {
+  color: #22c55e;
+  text-decoration: none;
+}
 </style>
 </head>
 <body>
 
 <div class="box">
   <h2>* You endured.</h2>
-  <p id="stats"></p>
-  <p>* Determination persists.</p>
+  <p>* Your soul remains.</p>
   <a href="index.html">> Begin again</a>
 </div>
-
-<script>
-  const reaction = localStorage.getItem("reaction");
-  document.getElementById("stats").innerHTML =
-    `* Reaction time: ${reaction} ms<br>* Status: ALIVE`;
-</script>
 
 </body>
 </html>
