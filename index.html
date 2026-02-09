@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Button Quest - Level 1</title>
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 60px;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 22px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #22c55e;
+    }
+  </style>
+</head>
+<body>
 
+<h1>🎮 Button Quest</h1>
+<h2>Level 1: Reaction Test</h2>
+<p>Click the button as fast as you can when it turns green.</p>
+
+<button id="btn" disabled>WAIT...</button>
+<p id="result"></p>
+
+<script>
+  const btn = document.getElementById("btn");
+  const result = document.getElementById("result");
+  let startTime;
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = "CLICK!";
+    startTime = Date.now();
+  }, Math.random() * 3000 + 2000);
+
+  btn.onclick = () => {
+    const reaction = Date.now() - startTime;
+    localStorage.setItem("score1", reaction);
+    result.textContent = `Reaction time: ${reaction} ms`;
+    setTimeout(() => location.href = "index2.html", 2000);
+  };
+</script>
+
+</body>
+</html>
