@@ -1,77 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Button Quest - Level 2</title>
-  <style>
-    body {
-      background: #020617;
-      color: white;
-      font-family: Arial;
-      text-align: center;
-    }
-    canvas {
-      background: black;
-      margin-top: 20px;
-      border: 3px solid white;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Button Quest</title>
+<style>
+  body {
+    margin: 0;
+    background: #020617;
+    color: white;
+    font-family: monospace;
+    text-align: center;
+  }
+
+  canvas {
+    margin-top: 20px;
+    background: black;
+    border: 3px solid white;
+  }
+</style>
 </head>
 <body>
 
-<h2>Level 2: Dodge the Blocks</h2>
-<p>Use ← → arrow keys. Survive 15 seconds.</p>
+<h2>* The arena closes in.</h2>
+<p>* Survive.</p>
 
-<canvas id="game" width="400" height="300"></canvas>
+<canvas id="c" width="400" height="300"></canvas>
 
 <script>
-  const canvas = document.getElementById("game");
-  const ctx = canvas.getContext("2d");
+  const c = document.getElementById("c");
+  const ctx = c.getContext("2d");
 
-  let player = { x: 180, y: 260, w: 40, h: 20 };
-  let blocks = [];
-  let time = 0;
+  let player = { x: 190, y: 140, r: 6 };
+  let bullets = [];
+  let frames = 0;
 
   document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft") player.x -= 20;
-    if (e.key === "ArrowRight") player.x += 20;
+    if (e.key === "ArrowLeft") player.x -= 6;
+    if (e.key === "ArrowRight") player.x += 6;
+    if (e.key === "ArrowUp") player.y -= 6;
+    if (e.key === "ArrowDown") player.y += 6;
   });
 
-  function spawnBlock() {
-    blocks.push({ x: Math.random() * 360, y: 0 });
+  function spawn() {
+    bullets.push({
+      x: Math.random() * 400,
+      y: -10,
+      vy: 3 + Math.random() * 2
+    });
   }
 
   function loop() {
     ctx.clearRect(0,0,400,300);
 
+    // player (soul)
     ctx.fillStyle = "lime";
-    ctx.fillRect(player.x, player.y, player.w, player.h);
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.r, 0, Math.PI * 2);
+    ctx.fill();
 
+    // bullets
     ctx.fillStyle = "red";
-    blocks.forEach(b => {
-      b.y += 4;
-      ctx.fillRect(b.x, b.y, 30, 30);
+    bullets.forEach(b => {
+      b.y += b.vy;
+      ctx.fillRect(b.x, b.y, 8, 8);
 
-      if (
-        b.x < player.x + player.w &&
-        b.x + 30 > player.x &&
-        b.y < player.y + player.h &&
-        b.y + 30 > player.y
-      ) {
-        alert("Game Over!");
+      const dx = b.x - player.x;
+      const dy = b.y - player.y;
+      if (Math.sqrt(dx*dx + dy*dy) < 10) {
+        alert("* You failed.");
         location.reload();
       }
     });
 
-    if (time % 30 === 0) spawnBlock();
-    time++;
+    if (frames % 20 === 0) spawn();
+    frames++;
 
-    if (time > 900) {
-      localStorage.setItem("score2", "Survived");
+    if (frames > 900) {
+      localStorage.setItem("survived", "YES");
       location.href = "index3.html";
-    } else {
-      requestAnimationFrame(loop);
+      return;
     }
+
+    requestAnimationFrame(loop);
   }
 
   loop();
