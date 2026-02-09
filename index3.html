@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Button Quest - Results</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #1e3a8a, #020617);
-      color: white;
-      font-family: Arial;
-      text-align: center;
-      padding-top: 60px;
-    }
-    a {
-      color: #22c55e;
-      font-size: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Button Quest</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #1e3a8a, #020617);
+    color: white;
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .box {
+    border: 3px solid white;
+    padding: 30px;
+    width: 500px;
+    text-align: center;
+  }
+
+  a {
+    color: #22c55e;
+    text-decoration: none;
+  }
+</style>
 </head>
 <body>
 
-<h1>🏆 You Finished Button Quest!</h1>
-
-<p id="stats"></p>
-
-<a href="index.html">🔁 Play Again</a>
+<div class="box">
+  <h2>* You remain.</h2>
+  <p id="stats"></p>
+  <p>* Determination lingers.</p>
+  <a href="index.html">> Try again</a>
+</div>
 
 <script>
-  const reaction = localStorage.getItem("score1");
-  const dodge = localStorage.getItem("score2");
-
-  document.getElementById("stats").innerHTML = `
-    ⏱ Reaction Time: <b>${reaction} ms</b><br>
-    🏃 Dodge Level: <b>${dodge}</b>
-  `;
+  const r = localStorage.getItem("reaction");
+  document.getElementById("stats").innerHTML =
+    `* Reaction time: <b>${r} ms</b><br>* Status: ALIVE`;
 </script>
 
 </body>
