@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Button Quest - Level 2</title>
+  <style>
+    body {
+      background: #020617;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+    }
+    canvas {
+      background: black;
+      margin-top: 20px;
+      border: 3px solid white;
+    }
+  </style>
+</head>
+<body>
 
+<h2>Level 2: Dodge the Blocks</h2>
+<p>Use ← → arrow keys. Survive 15 seconds.</p>
+
+<canvas id="game" width="400" height="300"></canvas>
+
+<script>
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+
+  let player = { x: 180, y: 260, w: 40, h: 20 };
+  let blocks = [];
+  let time = 0;
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") player.x -= 20;
+    if (e.key === "ArrowRight") player.x += 20;
+  });
+
+  function spawnBlock() {
+    blocks.push({ x: Math.random() * 360, y: 0 });
+  }
+
+  function loop() {
+    ctx.clearRect(0,0,400,300);
+
+    ctx.fillStyle = "lime";
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+
+    ctx.fillStyle = "red";
+    blocks.forEach(b => {
+      b.y += 4;
+      ctx.fillRect(b.x, b.y, 30, 30);
+
+      if (
+        b.x < player.x + player.w &&
+        b.x + 30 > player.x &&
+        b.y < player.y + player.h &&
+        b.y + 30 > player.y
+      ) {
+        alert("Game Over!");
+        location.reload();
+      }
+    });
+
+    if (time % 30 === 0) spawnBlock();
+    time++;
+
+    if (time > 900) {
+      localStorage.setItem("score2", "Survived");
+      location.href = "index3.html";
+    } else {
+      requestAnimationFrame(loop);
+    }
+  }
+
+  loop();
+</script>
+
+</body>
+</html>
