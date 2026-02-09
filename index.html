@@ -3,67 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <title>Button Quest</title>
+
 <style>
-  body {
-    margin: 0;
-    background: #0f172a;
-    color: white;
-    font-family: monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .box {
-    width: 520px;
-    border: 3px solid white;
-    padding: 30px;
-    text-align: center;
-  }
-
-  button {
-    margin-top: 20px;
-    padding: 14px 28px;
-    font-size: 20px;
-    background: #22c55e;
-    border: none;
-    color: black;
-    cursor: pointer;
-  }
-
-  button:disabled {
-    background: #1e293b;
-    color: #64748b;
-  }
+body {
+  margin: 0;
+  background: #0f172a;
+  color: white;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.box {
+  width: 520px;
+  border: 3px solid white;
+  padding: 30px;
+  text-align: center;
+}
+.colors {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+.color {
+  width: 28px;
+  height: 28px;
+  border: 3px solid white;
+  cursor: pointer;
+}
+.selected {
+  outline: 3px solid #22c55e;
+}
+button {
+  padding: 14px 28px;
+  font-size: 20px;
+  background: #22c55e;
+  border: none;
+  cursor: pointer;
+  color: black;
+}
 </style>
 </head>
 <body>
 
 <div class="box">
-  <h2>* A test of determination.</h2>
-  <p id="text">* Wait.</p>
-  <button id="btn" disabled>WAIT</button>
+  <h2>* Choose your SOUL.</h2>
+  <p>* It reflects your determination.</p>
+
+  <div class="colors">
+    <div class="color selected" style="background:lime" data-color="lime"></div>
+    <div class="color" style="background:red" data-color="red"></div>
+    <div class="color" style="background:#3b82f6" data-color="#3b82f6"></div>
+    <div class="color" style="background:orange" data-color="orange"></div>
+    <div class="color" style="background:white" data-color="white"></div>
+  </div>
+
+  <button id="start">BEGIN</button>
 </div>
 
 <script>
-  const btn = document.getElementById("btn");
-  const text = document.getElementById("text");
-  let start;
+let chosenColor = "lime";
 
-  setTimeout(() => {
-    text.textContent = "* NOW.";
-    btn.textContent = "CLICK";
-    btn.disabled = false;
-    start = Date.now();
-  }, Math.random() * 3000 + 2000);
-
-  btn.onclick = () => {
-    const reaction = Date.now() - start;
-    localStorage.setItem("reaction", reaction);
-    text.textContent = `* ${reaction} ms.`;
-    setTimeout(() => location.href = "index2.html", 1500);
+document.querySelectorAll(".color").forEach(c => {
+  c.onclick = () => {
+    document.querySelectorAll(".color").forEach(x => x.classList.remove("selected"));
+    c.classList.add("selected");
+    chosenColor = c.dataset.color;
   };
+});
+
+document.getElementById("start").onclick = () => {
+  localStorage.setItem("playerColor", chosenColor);
+  location.href = "index2.html";
+};
 </script>
 
 </body>
