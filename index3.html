@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Button Quest - Results</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #020617);
+      color: white;
+      font-family: Arial;
+      text-align: center;
+      padding-top: 60px;
+    }
+    a {
+      color: #22c55e;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🏆 You Finished Button Quest!</h1>
+
+<p id="stats"></p>
+
+<a href="index.html">🔁 Play Again</a>
+
+<script>
+  const reaction = localStorage.getItem("score1");
+  const dodge = localStorage.getItem("score2");
+
+  document.getElementById("stats").innerHTML = `
+    ⏱ Reaction Time: <b>${reaction} ms</b><br>
+    🏃 Dodge Level: <b>${dodge}</b>
+  `;
+</script>
+
+</body>
+</html>
