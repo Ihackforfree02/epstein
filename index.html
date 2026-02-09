@@ -16,78 +16,53 @@
   }
 
   .box {
+    width: 520px;
     border: 3px solid white;
     padding: 30px;
-    width: 500px;
     text-align: center;
-    animation: flicker 3s infinite;
-  }
-
-  @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.95; }
-    52% { opacity: 0.85; }
-    54% { opacity: 1; }
   }
 
   button {
     margin-top: 20px;
-    padding: 15px 30px;
+    padding: 14px 28px;
     font-size: 20px;
     background: #22c55e;
     border: none;
     color: black;
     cursor: pointer;
-    border-radius: 6px;
   }
 
   button:disabled {
     background: #1e293b;
     color: #64748b;
-    cursor: not-allowed;
-  }
-
-  .shake {
-    animation: shake 0.2s infinite;
-  }
-
-  @keyframes shake {
-    0% { transform: translate(0); }
-    25% { transform: translate(2px, -2px); }
-    50% { transform: translate(-2px, 2px); }
-    75% { transform: translate(2px, 2px); }
-    100% { transform: translate(0); }
   }
 </style>
 </head>
 <body>
 
-<div class="box" id="box">
-  <h2>* A button stands before you.</h2>
-  <p id="text">* Stay still.</p>
+<div class="box">
+  <h2>* A test of determination.</h2>
+  <p id="text">* Wait.</p>
   <button id="btn" disabled>WAIT</button>
 </div>
 
 <script>
   const btn = document.getElementById("btn");
   const text = document.getElementById("text");
-  const box = document.getElementById("box");
   let start;
 
   setTimeout(() => {
     text.textContent = "* NOW.";
     btn.textContent = "CLICK";
     btn.disabled = false;
-    box.classList.add("shake");
     start = Date.now();
   }, Math.random() * 3000 + 2000);
 
   btn.onclick = () => {
-    const time = Date.now() - start;
-    localStorage.setItem("reaction", time);
-    text.textContent = `* ${time} ms. You felt it.`;
-    box.classList.remove("shake");
-    setTimeout(() => location.href = "index2.html", 2000);
+    const reaction = Date.now() - start;
+    localStorage.setItem("reaction", reaction);
+    text.textContent = `* ${reaction} ms.`;
+    setTimeout(() => location.href = "index2.html", 1500);
   };
 </script>
 
